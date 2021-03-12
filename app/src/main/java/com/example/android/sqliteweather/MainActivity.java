@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
      *
      *   buildConfigField("String", "OPENWEATHER_API_KEY", OPENWEATHER_API_KEY)
      */
-    private static final String OPENWEATHER_APPID = BuildConfig.OPENWEATHER_API_KEY;
+    private static final String OPENWEATHER_APPID = "37018d7ab26ab6677bb68c9d40c5942f";
 
     private ForecastAdapter forecastAdapter;
     private FiveDayForecastViewModel fiveDayForecastViewModel;
