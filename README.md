@@ -25,8 +25,8 @@ In this course, a final programming project will take the place of formal exams 
 > Your app should be sufficiently different from the apps we write in class (i.e. the GitHub search app and the app from the OpenWeather API-based assignments) to demonstrate that your team understands and is able to use the tools and techniques covered in class.
 
 
-You’ve written your proposals already, so you should know what app you’re going to work on.  This document contains a few more details about the process for the project.
-
+You’ve written your proposals already, so you should know what app you’re going to work on.  This document contains a few more details about the process for the project. Link to this below
+https://docs.google.com/document/u/1/d/1Fsqn03DP5qr3CTyQfJM9x6umIO4QMG98lH8MVxQncU0/edit?usp=sharing_eil&ts=6025b46d
 # GitHub repositories
 
 The code for your final project must be in a GitHub repository set up via GitHub Classroom.  You can use this link to form your team and create your final project repository:
