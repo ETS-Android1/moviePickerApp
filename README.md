@@ -10,7 +10,7 @@ You can see a screen capture demonstrating the app's functionality below:
 
 ![Screen capture demonstrating app functionality](screencaps/full_app_demo.gif)
 
-## 1. Add a navigation drawer to your app
+## 1. Add a navigation drawer to your appsss
 
 First, add a navigation drawer to your app.  The navigation drawer should be accessible via a "hamburger" icon in the navigation bar in the app's main activity.  For now, you can simply add some dummy content into the drawer so you can see it in open and close.
 
