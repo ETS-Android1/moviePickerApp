@@ -4,17 +4,25 @@ Code and demo due by 5:00pm on Friday, 3/19/2021
 
 In this course, a final programming project will take the place of formal exams to test your understanding of the material.  The final project will involve working with a team of 3-4 people to implement a substantial Android app that utilizes the major features we’ve looked at this term.  Specifically, you and your teammates will write an app that satisfies all of these requirements:
 
-It should have multiple activities the user can navigate between.
-It should use at least one implicit intent to launch another app.
-It should communicate via HTTP(s) with a third-party API to provide data for the app and optionally to send data back to the API.
-It must implement activity lifecycle methods and the ViewModel architecture to ensure that UI-related data is handled elegantly through lifecycle events.
-It should either store user preferences (via SharedPreferences or, if you’re feeling ambitious, the forthcoming DataStore library, now in alpha status) or store application data in device storage (using SQLite).  You may do both of these things if you want.
-It should have a polished, intuitive, and well-styled user interface.
-In addition, your app should implement at least one additional Android feature that isn’t covered in class.
-Some examples of possible features include: file storage, media playback, camera usage, etc.  You could also implement new navigation mechanisms or other architectural features that aren’t covered in class.  To get a better idea of the possibilities, it could be helpful to spend some time browsing the Android Jetpack documentation.
-Roughly, the remaining topics we’ll discuss in class are: the activity lifecycle and the ViewModel architecture; storing user preferences with SharedPreferences; storing structured data on device with SQLite; working with images and ViewPager navigation; background work and notifications.  These are things that won’t count for this additional feature requirement.
+> It should have multiple activities the user can navigate between.
 
-Your app should be sufficiently different from the apps we write in class (i.e. the GitHub search app and the app from the OpenWeather API-based assignments) to demonstrate that your team understands and is able to use the tools and techniques covered in class.
+> It should use at least one implicit intent to launch another app.
+
+> It should communicate via HTTP(s) with a third-party API to provide data for the app and optionally to send data back to the API.
+
+> It must implement activity lifecycle methods and the ViewModel architecture to ensure that UI-related data is handled elegantly through lifecycle events.
+
+> It should either store user preferences (via SharedPreferences or, if you’re feeling ambitious, the forthcoming DataStore library, now in alpha status) or store application data in device storage (using SQLite).  You may do both of these things if you want.
+
+> It should have a polished, intuitive, and well-styled user interface.
+
+> In addition, your app should implement at least one additional Android feature that isn’t covered in class.
+
+> Some examples of possible features include: file storage, media playback, camera usage, etc.  You could also implement new navigation mechanisms or other architectural features that aren’t covered in class.  To get a better idea of the possibilities, it could be helpful to spend some time browsing the Android Jetpack documentation.
+
+> Roughly, the remaining topics we’ll discuss in class are: the activity lifecycle and the ViewModel architecture; storing user preferences with SharedPreferences; storing structured data on device with SQLite; working with images and ViewPager navigation; background work and notifications.  These are things that won’t count for this additional feature requirement.
+
+> Your app should be sufficiently different from the apps we write in class (i.e. the GitHub search app and the app from the OpenWeather API-based assignments) to demonstrate that your team understands and is able to use the tools and techniques covered in class.
 
 
 You’ve written your proposals already, so you should know what app you’re going to work on.  This document contains a few more details about the process for the project.
