@@ -26,6 +26,8 @@ import com.example.android.sqliteweather.data.ForecastCity;
 import com.example.android.sqliteweather.data.ForecastData;
 import com.example.android.sqliteweather.data.LoadingStatus;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements ForecastAdapter.OnForecastItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = MainActivity.class.getSimpleName();

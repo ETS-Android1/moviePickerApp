@@ -35,7 +35,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public ForecastItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.genre_list_item, parent, false);
+        View itemView = inflater.inflate(R.layout.forecast_list_item, parent, false);
         return new ForecastItemViewHolder(itemView);
     }
 
@@ -68,7 +68,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         public ForecastItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            dateTV = itemView.findViewById(R.id.tv_genre);
+            dateTV = itemView.findViewById(R.id.tv_date);
             timeTV = itemView.findViewById(R.id.tv_time);
             highTempTV = itemView.findViewById(R.id.tv_high_temp);
             lowTempTV = itemView.findViewById(R.id.tv_low_temp);
