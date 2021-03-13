@@ -37,33 +37,33 @@
         app:layout_constraintTop_toBottomOf="@id/tv_forecast_city" />
 
     <LinearLayout
-        android:id="@+id/ll_low_temp"
+        android:id="@+id/unfavorite_pass_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@id/ll_high_temp"
+        app:layout_constraintEnd_toStartOf="@id/favorite_id"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_forecast_date">
 
         <ImageView
-            android:id="@+id/iv_low_temp_icon"
+            android:id="@+id/iv_unfavorite_pass_icon"
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:src="@drawable/ic_baseline_device_thermostat_24"
             app:tint="@color/low_temp" />
 
         <TextView
-            android:id="@+id/tv_low_temp"
+            android:id="@+id/tv_unfavorite_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.CS492Weather.LowTempLarge" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_high_temp"
+        android:id="@+id/favorite_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="95dp"
@@ -72,18 +72,18 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@+id/ll_low_temp"
+        app:layout_constraintStart_toEndOf="@+id/unfavorite_pass_id"
         app:layout_constraintTop_toBottomOf="@id/tv_forecast_date">
 
         <ImageView
-            android:id="@+id/iv_high_temp_icon"
+            android:id="@+id/iv_favorite_icon"
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:src="@drawable/ic_baseline_device_thermostat_24"
             app:tint="@color/high_temp" />
 
         <TextView
-            android:id="@+id/tv_high_temp"
+            android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.CS492Weather.HighTempLarge" />
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="ll_high_temp,ll_low_temp" />
+        app:constraint_referenced_ids="favorite_id,unfavorite_pass_id" />
 
     <LinearLayout
         android:id="@+id/ll_pop"

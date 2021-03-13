@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_low_temp"
+            android:id="@+id/tv_unfavorite_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.CS492Weather.LowTempSmall"
@@ -59,8 +59,8 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_high_temp"
-            app:layout_constraintStart_toEndOf="@id/tv_low_temp"
+            app:layout_constraintEnd_toStartOf="@id/tv_favorite"
+            app:layout_constraintStart_toEndOf="@id/tv_unfavorite_pass"
             app:layout_constraintTop_toBottomOf="@id/barrier2">
 
             <ImageView
@@ -78,7 +78,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_high_temp"
+            android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="top"
-            app:constraint_referenced_ids="tv_high_temp,tv_low_temp" />
+            app:constraint_referenced_ids="tv_favorite,tv_unfavorite_pass" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

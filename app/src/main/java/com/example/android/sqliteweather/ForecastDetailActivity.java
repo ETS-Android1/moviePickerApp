@@ -66,7 +66,7 @@ public class ForecastDetailActivity extends AppCompatActivity {
                     getString(R.string.pref_units_key),
                     getString(R.string.pref_units_default_value)
             );
-            TextView lowTempTV = findViewById(R.id.tv_low_temp);
+            TextView lowTempTV = findViewById(R.id.tv_unfavorite_pass);
             lowTempTV.setText(getString(
                     R.string.forecast_temp,
                     forecastData.getLowTemp(),
@@ -74,7 +74,7 @@ public class ForecastDetailActivity extends AppCompatActivity {
                     OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
             ));
 
-            TextView highTempTV = findViewById(R.id.tv_high_temp);
+            TextView highTempTV = findViewById(R.id.tv_favorite);
             highTempTV.setText(getString(
                     R.string.forecast_temp,
                     forecastData.getHighTemp(),
