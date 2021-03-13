@@ -18,7 +18,8 @@ Your app should be sufficiently different from the apps we write in class (i.e. 
 
 
 You’ve written your proposals already, so you should know what app you’re going to work on.  This document contains a few more details about the process for the project.
-GitHub repositories
+
+# GitHub repositories
 
 The code for your final project must be in a GitHub repository set up via GitHub Classroom.  You can use this link to form your team and create your final project repository:
 
@@ -28,7 +29,9 @@ The repository created for your team will be private by default, but you will ha
 
 
 If you’ve already started a GitHub repo for your project, don’t worry.  The repository created via the GitHub classroom link above will be completely empty, so you can simply use git remotes to work with both repositories.  I can help you set that up if needed.
-Working with a team on a shared GitHub repo
+
+# Working with a team on a shared GitHub repo
+
 When working with a team on a shared GitHub repo, it’s a good idea to use a workflow that uses branches and pull requests.  This has a few advantages:
 
 
