@@ -106,7 +106,8 @@ public class ForecastDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_forecast_detail, menu);
+        //getMenuInflater().inflate(R.menu.activity_forecast_detail, menu);
+        getMenuInflater().inflate(R.menu.activity_movie_detail, menu);
         return true;
     }
 
