@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +22,7 @@ public class MovieRepository {
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     private MutableLiveData<GenreList> genreList;
-    private MutableLiveData<LanguageList> languageList;
+    private MutableLiveData<ArrayList<LanguageData>> languageList;
 
     private String currentMovieName;
 
@@ -40,8 +42,8 @@ public class MovieRepository {
         this.loadingStatus.setValue(LoadingStatus.SUCCESS);
 
         Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LanguageData.class, new LanguageData.JsonDeserializer())
                 .registerTypeAdapter(GenreData.class, new GenreData.JsonDeserializer())
-                .registerTypeAdapter(LanguageList.class, new LanguageList.JsonDeserializer())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -56,7 +58,7 @@ public class MovieRepository {
         return this.genreList;
     }
 
-    public LiveData<LanguageList> getLanguage() {
+    public LiveData<ArrayList<LanguageData>> getLanguage() {
         return this.languageList;
     }
 
@@ -79,6 +81,8 @@ public class MovieRepository {
                         if (response.code() == 200) {
                             genreList.setValue(response.body());
                             loadingStatus.setValue(LoadingStatus.SUCCESS);
+                            Log.d(TAG, "Loading genres successful");
+                            Log.d(TAG, "Length of Genres: " + genreList.getValue().getGenresList().size());
                         } else {
                             loadingStatus.setValue(LoadingStatus.ERROR);
                             Log.d(TAG, "unsuccessful API request: " + call.request().url());
@@ -96,13 +100,15 @@ public class MovieRepository {
                 });
             }else if(mode == 2){
                 this.languageList.setValue(null);
-                Call<LanguageList> req = this.openMovieService.fetchLanguages(apiKey);
-                req.enqueue(new Callback<LanguageList>() {
+                Call<ArrayList<LanguageData>> req = this.openMovieService.fetchLanguages(apiKey);
+                req.enqueue(new Callback<ArrayList<LanguageData>>() {
                     @Override
-                    public void onResponse(Call<LanguageList> call, Response<LanguageList> response) {
+                    public void onResponse(Call<ArrayList<LanguageData>> call, Response<ArrayList<LanguageData>> response) {
                         if (response.code() == 200) {
                             languageList.setValue(response.body());
                             loadingStatus.setValue(LoadingStatus.SUCCESS);
+                            Log.d(TAG, "Loading languages successful");
+                            Log.d(TAG, "Length of languages: " + languageList.getValue().size());
                         } else {
                             loadingStatus.setValue(LoadingStatus.ERROR);
                             Log.d(TAG, "unsuccessful API request: " + call.request().url());
@@ -112,7 +118,7 @@ public class MovieRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<LanguageList> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<LanguageData>> call, Throwable t) {
                         loadingStatus.setValue(LoadingStatus.ERROR);
                         Log.d(TAG, "unsuccessful API request: " + call.request().url());
                         t.printStackTrace();

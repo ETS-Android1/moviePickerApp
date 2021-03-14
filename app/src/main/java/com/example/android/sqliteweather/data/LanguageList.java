@@ -18,21 +18,10 @@ public class LanguageList implements Serializable {
         this.languages = null;
     }
 
-    public ArrayList<LanguageData> getGenresList() {
+    public ArrayList<LanguageData> getLanguagesList() {
         return languages;
     }
 
 
-    public static class JsonDeserializer implements com.google.gson.JsonDeserializer<LanguageData> {
-        @Override
-        public LanguageData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject listObj = json.getAsJsonObject();
 
-            return new LanguageData(
-                    listObj.getAsJsonPrimitive("iso_639_1").getAsString(),
-                    listObj.getAsJsonPrimitive("english_name").getAsString(),
-                    listObj.getAsJsonPrimitive("name").getAsString()
-            );
-        }
-    }
 }

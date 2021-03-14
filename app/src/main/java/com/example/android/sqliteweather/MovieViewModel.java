@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel;
 import com.example.android.sqliteweather.data.FiveDayForecast;
 import com.example.android.sqliteweather.data.FiveDayForecastRepository;
 import com.example.android.sqliteweather.data.GenreList;
+import com.example.android.sqliteweather.data.LanguageData;
 import com.example.android.sqliteweather.data.LanguageList;
 import com.example.android.sqliteweather.data.LoadingStatus;
 import com.example.android.sqliteweather.data.MovieRepository;
 
+import java.util.ArrayList;
+
 public class MovieViewModel extends ViewModel {
     private MovieRepository repository;
-    private LiveData<LanguageList> languageList;
+    private LiveData<ArrayList<LanguageData>> languageList;
     private LiveData<GenreList> genreList;
     private LiveData<LoadingStatus> loadingStatus;
 
@@ -27,7 +30,7 @@ public class MovieViewModel extends ViewModel {
         return this.genreList;
     }
 
-    public LiveData<LanguageList> getLanguageList() {
+    public LiveData<ArrayList<LanguageData>> getLanguageList() {
         return this.languageList;
     }
 

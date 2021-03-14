@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity
      *   buildConfigField("String", "OPENWEATHER_API_KEY", OPENWEATHER_API_KEY)
      */
     private static final String OPENWEATHER_APPID = "37018d7ab26ab6677bb68c9d40c5942f";
+    private static final String OPENMOVIE_APPID = "ed9eb9ebc0c0079eb7aae2b6a62fb801";
 
     private ForecastAdapter forecastAdapter;
     private FiveDayForecastViewModel fiveDayForecastViewModel;
+    private MovieViewModel movieViewModel;
 
     private SharedPreferences sharedPreferences;
 
@@ -87,6 +89,12 @@ public class MainActivity extends AppCompatActivity
         this.fiveDayForecastViewModel = new ViewModelProvider(this)
                 .get(FiveDayForecastViewModel.class);
         this.loadForecast();
+
+        this.movieViewModel = new ViewModelProvider(this)
+                .get(MovieViewModel.class);
+        this.movieViewModel.loadMovies(1, OPENMOVIE_APPID);
+        this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
+
 
         /*
          * Update UI to reflect newly fetched forecast data.
