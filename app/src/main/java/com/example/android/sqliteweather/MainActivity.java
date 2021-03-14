@@ -24,12 +24,15 @@ import android.widget.Toast;
 import com.example.android.sqliteweather.data.FiveDayForecast;
 import com.example.android.sqliteweather.data.ForecastCity;
 import com.example.android.sqliteweather.data.ForecastData;
+import com.example.android.sqliteweather.data.GenreData;
+import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LoadingStatus;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements ForecastAdapter.OnForecastItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+        implements ForecastAdapter.OnForecastItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener,
+        MovieAdapter.OnMovieItemClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     /*
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     private ForecastAdapter forecastAdapter;
     private FiveDayForecastViewModel fiveDayForecastViewModel;
     private MovieViewModel movieViewModel;
+    private MovieAdapter movieAdapter;
 
     private SharedPreferences sharedPreferences;
 
@@ -93,8 +97,28 @@ public class MainActivity extends AppCompatActivity
         this.movieViewModel = new ViewModelProvider(this)
                 .get(MovieViewModel.class);
         this.movieViewModel.loadMovies(1, OPENMOVIE_APPID);
-        this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
+        //this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
 
+        this.movieAdapter = new MovieAdapter(this);
+
+        this.forecastListRV.setAdapter(this.movieAdapter);
+        //
+
+        this.movieViewModel.getGenres().observe(
+                this,
+                new Observer<GenreList>() {
+                    @Override
+                    public void onChanged(GenreList genreList) {
+
+                        if (genreList != null) {
+                            movieAdapter.updateGenreData(genreList.getGenresList());
+                            //forecastCity = genreList.getForecastCity();
+                            //ActionBar actionBar = getSupportActionBar();
+                            //actionBar.setTitle(forecastCity.getName());
+                        }
+                    }
+                }
+        );
 
         /*
          * Update UI to reflect newly fetched forecast data.
@@ -144,6 +168,12 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, ForecastDetailActivity.class);
         intent.putExtra(ForecastDetailActivity.EXTRA_FORECAST_DATA, forecastData);
         intent.putExtra(ForecastDetailActivity.EXTRA_FORECAST_CITY, this.forecastCity);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMovieItemClick(GenreData genreData) {
+        Intent intent = new Intent(this, ForecastDetailActivity.class);
         startActivity(intent);
     }
 

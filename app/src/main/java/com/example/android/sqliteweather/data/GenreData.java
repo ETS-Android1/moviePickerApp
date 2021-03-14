@@ -17,6 +17,10 @@ public class GenreData implements Serializable {
         this.name = n;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static class JsonDeserializer implements com.google.gson.JsonDeserializer<GenreData> {
         @Override
         public GenreData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
