@@ -52,6 +52,18 @@ public class MovieRepository {
 
     }
 
+    public LiveData<GenreList> getGenres() {
+        return this.genreList;
+    }
+
+    public LiveData<LanguageList> getLanguage() {
+        return this.languageList;
+    }
+
+    public LiveData<LoadingStatus> getLoadingStatus() {
+        return this.loadingStatus;
+    }
+
     public void loadMovieDatabase(int mode, String apiKey) {
         if (/*shouldFetchMovies()*/true) {
             Log.d(TAG, "Going into mode: " + mode);
