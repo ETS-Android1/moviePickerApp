@@ -1,92 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ForecastDetailActivity">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_movie_detail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_movie_icon"
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="movie title"
+        android:textAppearance="?attr/textAppearanceHeadline3"/>
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_forecast_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
-    <TextView
-        android:id="@+id/tv_movie_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_movie_icon"
-        app:layout_constraintBottom_toTopOf="@id/tv_forecast_date"/>
-
-    <TextView
-        android:id="@+id/tv_forecast_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_movie_name" />
-
-    <LinearLayout
-        android:id="@+id/unfavorite_pass_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@id/favorite_id"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_forecast_date">
-
-        <ImageView
-            android:id="@+id/iv_unfavorite_pass_icon"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:src="@drawable/ic_unfavorite_pass"
-            app:tint="@color/low_temp" />
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="4dp">
 
         <TextView
-            android:id="@+id/tv_unfavorite_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.CS492Weather.LowTempLarge" />
-    </LinearLayout>
+            android:id="@+id/info_text"
+            android:text="Description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/favorite_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@+id/unfavorite_pass_id"
-        app:layout_constraintTop_toBottomOf="@id/tv_forecast_date">
-
-        <ImageView
-            android:id="@+id/iv_favorite_icon"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:src="@drawable/ic_favorite"
-            app:tint="@color/high_temp" />
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view2"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="4dp">
 
         <TextView
-            android:id="@+id/tv_favorite"
+            android:id="@+id/info_text2"
+            android:text="Release"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.CS492Weather.HighTempLarge" />
-    </LinearLayout>
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view3"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="4dp">
+
+        <TextView
+            android:id="@+id/info_text3"
+            android:text="Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view4"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        card_view:cardCornerRadius="4dp">
+
+        <TextView
+            android:id="@+id/info_text4"
+            android:text="Genre(s)"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
