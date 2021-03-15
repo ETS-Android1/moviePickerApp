@@ -10,33 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sqliteweather.data.GenreData;
-import com.example.android.sqliteweather.data.LanguageData;
-import com.example.android.sqliteweather.data.LanguageList;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieItemViewHolder> {
+public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreItemViewHolder> {
     private ArrayList<GenreData> genreList;
-    private OnMovieItemClickListener onMovieItemClickListener;
+    private OnGenreItemClickListener onGenreItemClickListener;
 
-    public interface OnMovieItemClickListener {
+    public interface OnGenreItemClickListener {
         void onMovieItemClick(GenreData genreData);
     }
 
-    public MovieAdapter(OnMovieItemClickListener onMovieItemClickListener) {
-        this.onMovieItemClickListener = onMovieItemClickListener;
+    public GenreAdapter(OnGenreItemClickListener onGenreItemClickListener) {
+        this.onGenreItemClickListener = onGenreItemClickListener;
     }
 
     @NonNull
     @Override
-    public MovieItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GenreItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.genre_list_item, parent, false);
-        return new MovieItemViewHolder(itemView);
+        return new GenreItemViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GenreItemViewHolder holder, int position) {
         holder.bind(this.genreList.get(position));
     }
 
@@ -54,17 +52,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieItemVie
         }
     }
 
-    class MovieItemViewHolder extends RecyclerView.ViewHolder {
+    class GenreItemViewHolder extends RecyclerView.ViewHolder {
         final private TextView genreTV;
 
-        public MovieItemViewHolder(@NonNull View itemView) {
+        public GenreItemViewHolder(@NonNull View itemView) {
             super(itemView);
             genreTV = itemView.findViewById(R.id.tv_genre);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onMovieItemClickListener.onMovieItemClick(
+                    onGenreItemClickListener.onMovieItemClick(
                             genreList.get(getAdapterPosition())
                     );
                 }

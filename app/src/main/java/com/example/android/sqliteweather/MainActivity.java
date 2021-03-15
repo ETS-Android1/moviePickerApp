@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements ForecastAdapter.OnForecastItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener,
-        MovieAdapter.OnMovieItemClickListener, LanguageAdapter.OnLanguageItemClickListener{
+        GenreAdapter.OnGenreItemClickListener, LanguageAdapter.OnLanguageItemClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     /*
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     private ForecastAdapter forecastAdapter;
     private FiveDayForecastViewModel fiveDayForecastViewModel;
     private MovieViewModel movieViewModel;
-    private MovieAdapter movieAdapter;
+    private GenreAdapter genreAdapter;
     private LanguageAdapter languageAdapter;
     private ArrayList<LanguageData> langList;
 
@@ -100,12 +100,12 @@ public class MainActivity extends AppCompatActivity
         this.movieViewModel = new ViewModelProvider(this)
                 .get(MovieViewModel.class);
         this.movieViewModel.loadMovies(1, OPENMOVIE_APPID);
-        this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
+        //this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
 
-        this.movieAdapter = new MovieAdapter(this);
+        this.genreAdapter = new GenreAdapter(this);
         this.languageAdapter = new LanguageAdapter(this);
 
-        this.forecastListRV.setAdapter(this.movieAdapter);
+        this.forecastListRV.setAdapter(this.genreAdapter);
 
 
         langList = new ArrayList<>();
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onChanged(GenreList genreList) {
                         if (genreList != null) {
-                            movieAdapter.updateGenreData(genreList.getGenresList());
+                            genreAdapter.updateGenreData(genreList.getGenresList());
                             ActionBar actionBar = getSupportActionBar();
                             actionBar.setTitle("Genres");
                         }
@@ -197,8 +197,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLanguageItemClick(LanguageData languageData) {
-        Intent intent = new Intent(this, ForecastDetailActivity.class);
-        startActivity(intent);
+        Log.d(TAG, "The language clicked was: " + languageData.getEnglish_name());
+        this.forecastListRV.setAdapter(this.genreAdapter);
+        //Intent intent = new Intent(this, ForecastDetailActivity.class);
+        //startActivity(intent);
     }
 
     @Override
