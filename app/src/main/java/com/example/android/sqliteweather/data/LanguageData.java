@@ -25,6 +25,10 @@ public class LanguageData implements Serializable {
         Log.d(TAG, "Building language: " + i + en + n);
     }
 
+    public String getEnglish_name() {
+        return english_name;
+    }
+
     public static class JsonDeserializer implements com.google.gson.JsonDeserializer<LanguageData> {
         @Override
         public LanguageData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

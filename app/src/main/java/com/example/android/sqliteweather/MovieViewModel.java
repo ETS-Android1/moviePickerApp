@@ -30,6 +30,7 @@ public class MovieViewModel extends ViewModel {
         return this.genreList;
     }
 
+
     public LiveData<ArrayList<LanguageData>> getLanguageList() {
         return this.languageList;
     }

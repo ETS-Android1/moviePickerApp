@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sqliteweather.data.GenreData;
+import com.example.android.sqliteweather.data.LanguageData;
+import com.example.android.sqliteweather.data.LanguageList;
 
 import java.util.ArrayList;
 
