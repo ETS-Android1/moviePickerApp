@@ -198,9 +198,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLanguageItemClick(LanguageData languageData) {
         Log.d(TAG, "The language clicked was: " + languageData.getEnglish_name());
-        this.forecastListRV.setAdapter(this.genreAdapter);
-        //Intent intent = new Intent(this, ForecastDetailActivity.class);
-        //startActivity(intent);
+        //this.forecastListRV.setAdapter(this.genreAdapter);
+        Intent intent = new Intent(this, ForecastDetailActivity.class);
+        startActivity(intent);
     }
 
     @Override
