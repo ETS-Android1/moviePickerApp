@@ -16,7 +16,7 @@
     <string name="action_share_title">Share this forecast</string>
     <string name="action_settings_title">Settings</string>
     <string name="action_view_movie">Link to movie web</string>
-
+    <string name="action_video_title">Video</string>
 
 
     <string name="geo_uri">geo:%1$f,%2$f?z=%3$d</string>
