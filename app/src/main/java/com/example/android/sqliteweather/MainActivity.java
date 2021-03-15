@@ -33,8 +33,9 @@ import com.example.android.sqliteweather.data.MovieList;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements ForecastAdapter.OnForecastItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener,
-        GenreAdapter.OnGenreItemClickListener, LanguageAdapter.OnLanguageItemClickListener{
+        implements SharedPreferences.OnSharedPreferenceChangeListener,
+        GenreAdapter.OnGenreItemClickListener,
+        LanguageAdapter.OnLanguageItemClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     /*
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity
         this.forecastListRV.setLayoutManager(new LinearLayoutManager(this));
         this.forecastListRV.setHasFixedSize(true);
 
-        this.forecastAdapter = new ForecastAdapter(this);
         this.forecastListRV.setAdapter(this.forecastAdapter);
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity
         this.languageAdapter = new LanguageAdapter(this);
 
         this.forecastListRV.setAdapter(this.genreAdapter);
-
 
         langList = new ArrayList<>();
         langList.add(new LanguageData("en", "English", "English"));
@@ -145,29 +144,6 @@ public class MainActivity extends AppCompatActivity
                 }
         );
 
-
-
-
-
-        /*
-         * Update UI to reflect newly fetched forecast data.
-         */
-        /*
-        this.fiveDayForecastViewModel.getFiveDayForecast().observe(
-                this,
-                new Observer<FiveDayForecast>() {
-                    @Override
-                    public void onChanged(FiveDayForecast fiveDayForecast) {
-                        forecastAdapter.updateForecastData(fiveDayForecast);
-                        if (fiveDayForecast != null) {
-                            forecastCity = fiveDayForecast.getForecastCity();
-                            ActionBar actionBar = getSupportActionBar();
-                            actionBar.setTitle(forecastCity.getName());
-                        }
-                    }
-                }
-        );
-
         /*
          * Update UI to reflect changes in loading status.
          */
@@ -191,14 +167,6 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
-    }
-
-    @Override
-    public void onForecastItemClick(ForecastData forecastData) {
-        Intent intent = new Intent(this, ForecastDetailActivity.class);
-        intent.putExtra(ForecastDetailActivity.EXTRA_FORECAST_DATA, forecastData);
-        intent.putExtra(ForecastDetailActivity.EXTRA_FORECAST_CITY, this.forecastCity);
-        startActivity(intent);
     }
 
     @Override

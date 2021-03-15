@@ -42,7 +42,6 @@ public class MovieViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_forecast_detail);
         setContentView(R.layout.activity_view_movie);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -52,7 +51,6 @@ public class MovieViewActivity extends AppCompatActivity {
             this.movieData = (MovieData) intent.getSerializableExtra(EXTRA_MOVIE_DATA);
             Log.d(TAG, "this poster address going in: " + movieData.getPoster_path());
             buildView();
-
         }
     }
     public void buildDetail(){
@@ -79,7 +77,6 @@ public class MovieViewActivity extends AppCompatActivity {
                 buildView();
             }
         });
-
     }
 
     public void buildView(){
@@ -95,9 +92,7 @@ public class MovieViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buildDetail();
-
             }
-
         });
     }
 
@@ -108,7 +103,6 @@ public class MovieViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.activity_forecast_detail, menu);
         getMenuInflater().inflate(R.menu.activity_movie_detail, menu);
         return true;
     }
@@ -116,9 +110,7 @@ public class MovieViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            //case R.id.action_share:
             case R.id.action_view_movie_web:
-                //shareForecastText();
                 viewMovieWebsite();
                 return true;
             default:
@@ -128,7 +120,6 @@ public class MovieViewActivity extends AppCompatActivity {
 
     //Link to movie imdb
     private void viewMovieWebsite(){
-        //String movieID = "tt5109280";
         Uri movieWebUri =  Uri.parse("https://www.themoviedb.org/movie/" + movieData.getId());
         Intent intent = new Intent(Intent.ACTION_VIEW, movieWebUri);
         try {

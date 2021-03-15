@@ -25,7 +25,4 @@ public interface OpenMovieService {
             @Query("with_genres") String withGenres,
             @Query("page") String page
     );
-
-
-
 }

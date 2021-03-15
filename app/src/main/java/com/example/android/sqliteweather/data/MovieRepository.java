@@ -166,8 +166,6 @@ public class MovieRepository {
     private boolean shouldFetchForecast(String location, String units) {
         /*
          * Fetch forecast if there isn't currently one stored.
-
-
     }
     */
 }

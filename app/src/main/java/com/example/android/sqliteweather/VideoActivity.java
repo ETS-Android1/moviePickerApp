@@ -5,16 +5,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-
 import com.example.android.sqliteweather.data.VideoConfig;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-
 public class VideoActivity extends YouTubeBaseActivity {
-
     private static final String TAG = "VideoActivity";
 
     YouTubePlayerView mYouTubePlayerView;
@@ -33,7 +30,8 @@ public class VideoActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d(TAG, "onClick: Done initializing");
-                youTubePlayer.loadVideo("9BPMTr-NS9s");
+                //youTubePlayer.loadVideo("9BPMTr-NS9s");
+                youTubePlayer.loadPlaylist("PLgCYzKIBE8TUoCyjomGFqzTFcJ05OaC");
             }
 
             @Override
