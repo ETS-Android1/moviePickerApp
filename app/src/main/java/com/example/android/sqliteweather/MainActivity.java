@@ -221,6 +221,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_video:
+                Intent video_intent = new Intent(this, VideoActivity.class);
+                startActivity(video_intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

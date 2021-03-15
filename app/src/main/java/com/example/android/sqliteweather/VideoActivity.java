@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.sqliteweather.data.VideoConfig;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -34,7 +33,7 @@ public class VideoActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d(TAG, "onClick: Done initializing");
-                youTubePlayer.loadVideo("W4hTJybfU7s" , 1);
+                youTubePlayer.loadVideo("9BPMTr-NS9s");
             }
 
             @Override
