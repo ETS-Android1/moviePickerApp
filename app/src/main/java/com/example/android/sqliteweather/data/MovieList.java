@@ -17,6 +17,10 @@ public class MovieList implements Serializable{
         this.movieList = movLis;
     }
 
+    public ArrayList<MovieData> getMovieList() {
+        return movieList;
+    }
+
     public static class JsonDeserializer implements com.google.gson.JsonDeserializer<ArrayList<MovieData>> {
         @Override
         public ArrayList<MovieData> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
