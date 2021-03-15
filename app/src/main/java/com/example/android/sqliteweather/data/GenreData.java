@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-package com.example.android.sqliteweather.data;
-
-public class GenreData {
-    private int genreType;
-    public GenreData(int t){
-        genreType = t;
-    }
-
-    public int getGenreType() {
-        return genreType;
-    }
-}
-=======
 package com.example.android.sqliteweather.data;
 
 import com.google.gson.JsonDeserializationContext;
@@ -47,4 +33,4 @@ public class GenreData implements Serializable {
         }
     }
 }
->>>>>>> 4c8ffa1464dc7e713857a96de4f562be62788624
+
