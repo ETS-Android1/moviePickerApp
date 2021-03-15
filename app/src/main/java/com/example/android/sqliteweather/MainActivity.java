@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Language");
         this.forecastListRV.setAdapter(this.languageAdapter);
-        //Intent intent = new Intent(this, ForecastDetailActivity.class);
-        //startActivity(intent);
     }
 
     @Override
@@ -185,6 +183,7 @@ public class MainActivity extends AppCompatActivity
         //this.forecastListRV.setAdapter(this.genreAdapter);
         Intent intent = new Intent(this, MovieViewActivity.class);
         intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, this.movieViewModel.getMovie(0));
+        intent.putExtra(MovieViewActivity.EXTRA_GENRE_DATA, this.movieViewModel.getGenres().getValue());
         startActivity(intent);
     }
 
