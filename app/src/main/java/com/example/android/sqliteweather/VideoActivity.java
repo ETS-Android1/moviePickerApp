@@ -45,31 +45,6 @@ public class VideoActivity extends YouTubeBaseActivity {
                 mYouTubePlayerView.initialize(VideoConfig.getApiKey(), mOnInitializedListener);
             }
         });
-
-//        Log.d(TAG, "onCreate: Starting...");
-//        play_button = (Button) findViewById(R.id.play_button);
-//        mYouTubePlayerView = (YouTubePlayerView) findViewById(R.id.video_player);
-//
-//        mOnInitializedListener = new YouTubePlayer.OnInitializedListener() {
-//            @Override
-//            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-//                Log.d(TAG, "onClick: Done initializing");
-//                youTubePlayer.loadVideo("W4hTJybfU7s");
-//            }
-//
-//            @Override
-//            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-//                Log.d(TAG, "onClick: Failed to initializing");
-//
-//            }
-//        };
-//
-//        play_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG, "onClick: Inializing Video Player");
-//                mYouTubePlayerView.initialize(VideoConfig.getApiKey(), mOnInitializedListener);
-//            }
-//        });
+        
     }
 }

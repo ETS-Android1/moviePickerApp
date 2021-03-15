@@ -52,6 +52,8 @@ public class ForecastDetailActivity extends AppCompatActivity {
         }
     }
 
+
+
     //Link to movie imdb
     private void viewMovieWebsite(){
         String movieID = "tt5109280";
