@@ -9,6 +9,7 @@ import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LanguageData;
 import com.example.android.sqliteweather.data.LanguageList;
 import com.example.android.sqliteweather.data.LoadingStatus;
+import com.example.android.sqliteweather.data.MovieList;
 import com.example.android.sqliteweather.data.MovieRepository;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class MovieViewModel extends ViewModel {
     private MovieRepository repository;
     private LiveData<ArrayList<LanguageData>> languageList;
     private LiveData<GenreList> genreList;
+    private LiveData<MovieList> movieList;
     private LiveData<LoadingStatus> loadingStatus;
 
     public MovieViewModel() {
@@ -30,6 +32,7 @@ public class MovieViewModel extends ViewModel {
         return this.genreList;
     }
 
+    public LiveData<MovieList> getMovieList() { return movieList; }
 
     public LiveData<ArrayList<LanguageData>> getLanguageList() {
         return this.languageList;
@@ -39,7 +42,7 @@ public class MovieViewModel extends ViewModel {
         return this.loadingStatus;
     }
 
-    public void loadMovies(int mode, String apiKey) {
-        this.repository.loadMovieDatabase(mode, apiKey);
+    public void loadMovies(int mode, String apiKey, String language, String sortBy, String withGenres, String page) {
+        this.repository.loadMovieDatabase(mode, apiKey, language, sortBy, withGenres, page);
     }
 }

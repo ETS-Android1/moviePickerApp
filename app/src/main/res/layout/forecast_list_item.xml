@@ -103,5 +103,4 @@
             app:constraint_referenced_ids="tv_favorite,tv_unfavorite_pass" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> 4c8ffa1464dc7e713857a96de4f562be62788624
 </com.google.android.material.card.MaterialCardView>

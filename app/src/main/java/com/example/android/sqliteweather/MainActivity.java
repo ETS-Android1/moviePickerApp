@@ -28,6 +28,7 @@ import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LanguageData;
 import com.example.android.sqliteweather.data.LoadingStatus;
+import com.example.android.sqliteweather.data.MovieList;
 
 import java.util.ArrayList;
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity
 
         this.movieViewModel = new ViewModelProvider(this)
                 .get(MovieViewModel.class);
-        this.movieViewModel.loadMovies(1, OPENMOVIE_APPID);
+        this.movieViewModel.loadMovies(1, OPENMOVIE_APPID, "", "", "", "");
         //this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
 
         this.genreAdapter = new GenreAdapter(this);
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity
         langList.add(new LanguageData("de", "German", "Deutsch"));
         languageAdapter.updateLanguageData(langList);
 
+        this.movieViewModel.loadMovies(0, OPENMOVIE_APPID, "en", "popularity.desc", "28", "1");
 
         this.movieViewModel.getGenres().observe(
                 this,
@@ -126,6 +128,18 @@ public class MainActivity extends AppCompatActivity
                             genreAdapter.updateGenreData(genreList.getGenresList());
                             ActionBar actionBar = getSupportActionBar();
                             actionBar.setTitle("Genres");
+                        }
+                    }
+                }
+        );
+
+        this.movieViewModel.getMovieList().observe(
+                this,
+                new Observer<MovieList>() {
+                    @Override
+                    public void onChanged(MovieList movieList) {
+                        if(movieList != null){
+                            Log.d(TAG, "This is number of movies stored: " + movieList.getMovieList().size());
                         }
                     }
                 }

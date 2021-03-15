@@ -23,6 +23,7 @@ public class MovieRepository {
 
     private MutableLiveData<GenreList> genreList;
     private MutableLiveData<ArrayList<LanguageData>> languageList;
+    private MutableLiveData<MovieList> movieList;
 
     private String currentMovieName;
 
@@ -38,12 +39,16 @@ public class MovieRepository {
         this.languageList = new MutableLiveData<>();
         this.languageList.setValue(null);
 
+        this.movieList = new MutableLiveData<>();
+        this.movieList.setValue(null);
+
         this.loadingStatus = new MutableLiveData<>();
         this.loadingStatus.setValue(LoadingStatus.SUCCESS);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LanguageData.class, new LanguageData.JsonDeserializer())
                 .registerTypeAdapter(GenreData.class, new GenreData.JsonDeserializer())
+                .registerTypeAdapter(MovieList.class, new MovieList.JsonDeserializer())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -62,11 +67,13 @@ public class MovieRepository {
         return this.languageList;
     }
 
+    public MutableLiveData<MovieList> getMovieList() { return movieList; }
+
     public LiveData<LoadingStatus> getLoadingStatus() {
         return this.loadingStatus;
     }
 
-    public void loadMovieDatabase(int mode, String apiKey) {
+    public void loadMovieDatabase(int mode, String apiKey, String language, String sortBy, String withGenres, String page) {
         if (/*shouldFetchMovies()*/true) {
             Log.d(TAG, "Going into mode: " + mode);
 
@@ -119,6 +126,30 @@ public class MovieRepository {
 
                     @Override
                     public void onFailure(Call<ArrayList<LanguageData>> call, Throwable t) {
+                        loadingStatus.setValue(LoadingStatus.ERROR);
+                        Log.d(TAG, "unsuccessful API request: " + call.request().url());
+                        t.printStackTrace();
+                    }
+                });
+            }else if(mode == 0){
+                this.movieList.setValue(null);
+                Call<MovieList> req = this.openMovieService.fetchMovies(apiKey, language, sortBy, withGenres, page);
+                req.enqueue(new Callback<MovieList>() {
+                    @Override
+                    public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                        if (response.code() == 200) {
+                            movieList.setValue(response.body());
+                            loadingStatus.setValue(LoadingStatus.SUCCESS);
+                        } else {
+                            loadingStatus.setValue(LoadingStatus.ERROR);
+                            Log.d(TAG, "unsuccessful API request: " + call.request().url());
+                            Log.d(TAG, "  -- response status code: " + response.code());
+                            Log.d(TAG, "  -- response: " + response.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieList> call, Throwable t) {
                         loadingStatus.setValue(LoadingStatus.ERROR);
                         Log.d(TAG, "unsuccessful API request: " + call.request().url());
                         t.printStackTrace();

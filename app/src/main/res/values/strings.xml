@@ -18,6 +18,7 @@
     <string name="action_view_movie">Link to movie web</string>
     <string name="action_video_title">Video</string>
 
+
     <string name="geo_uri">geo:%1$f,%2$f?z=%3$d</string>
 
     <string name="share_forecast_text">Weather forecast from %1$s for %2$s, %3$s: %4$s with a high of %5$s, a low of %6$s, and a %7$s chance of precipitation.</string>
@@ -44,5 +45,4 @@
     <string name="pref_units_standard_wind_display">m/s</string>
     <string name="pref_units_metric_wind_display">m/s</string>
     <string name="pref_units_imperial_wind_display">mph</string>
->>>>>>> 4c8ffa1464dc7e713857a96de4f562be62788624
 </resources>
