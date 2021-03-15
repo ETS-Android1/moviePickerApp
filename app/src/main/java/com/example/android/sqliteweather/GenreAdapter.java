@@ -18,7 +18,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MovieItemVie
     private OnGenreItemClickListener onGenreItemClickListener;
 
     public interface OnGenreItemClickListener {
-        void onMovieItemClick(GenreData genreData);
+        void onGenreItemClick(GenreData genreData);
     }
 
     public GenreAdapter(OnGenreItemClickListener onGenreItemClickListener) {
@@ -62,7 +62,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MovieItemVie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onGenreItemClickListener.onMovieItemClick(
+                    onGenreItemClickListener.onGenreItemClick(
                             genreList.get(getAdapterPosition())
                     );
                 }

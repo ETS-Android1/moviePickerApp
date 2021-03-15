@@ -47,12 +47,12 @@ public class MovieList implements Serializable{
                 movieList.add(new MovieData(idsSto,
                         movieObj.getAsJsonPrimitive("id").getAsInt(),
                         movieObj.getAsJsonPrimitive("original_language").getAsString(),
-                        movieObj.getAsJsonPrimitive("original_title").getAsString(),
+                        movieObj.getAsJsonPrimitive("title").getAsString(),
                         movieObj.getAsJsonPrimitive("poster_path").getAsString(),
                         movieObj.getAsJsonPrimitive("overview").getAsString()
                 ));
             }
-            Log.d(TAG, "DABS: " + movieList.get(0).getGenre_ids().get(3));
+            //Log.d(TAG, "DABS: " + movieList.get(0).getGenre_ids().get(3));
             return new MovieList(movieList);
         }
     }

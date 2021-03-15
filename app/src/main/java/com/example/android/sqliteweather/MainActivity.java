@@ -127,12 +127,12 @@ public class MainActivity extends AppCompatActivity
                         if (genreList != null) {
                             genreAdapter.updateGenreData(genreList.getGenresList());
                             ActionBar actionBar = getSupportActionBar();
-                            actionBar.setTitle("Genres");
+                            actionBar.setTitle("Genre");
                         }
                     }
                 }
         );
-        /*
+
         this.movieViewModel.getMovieList().observe(
                 this,
                 new Observer<MovieList>() {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 }
-        );*/
+        );
 
 
 
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMovieItemClick(GenreData genreData) {
+    public void onGenreItemClick(GenreData genreData) {
         Log.d(TAG, "The genre clicked was: " + genreData.getName());
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Language");
@@ -215,7 +215,8 @@ public class MainActivity extends AppCompatActivity
     public void onLanguageItemClick(LanguageData languageData) {
         Log.d(TAG, "The language clicked was: " + languageData.getEnglish_name());
         //this.forecastListRV.setAdapter(this.genreAdapter);
-        Intent intent = new Intent(this, ForecastDetailActivity.class);
+        Intent intent = new Intent(this, MovieViewActivity.class);
+        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, this.movieViewModel.getMovie(0));
         startActivity(intent);
     }
 
@@ -238,6 +239,14 @@ public class MainActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.forecastListRV.setAdapter(this.genreAdapter);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Genre");
     }
 
     @Override
