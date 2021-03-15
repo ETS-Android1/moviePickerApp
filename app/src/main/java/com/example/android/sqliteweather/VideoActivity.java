@@ -45,6 +45,5 @@ public class VideoActivity extends YouTubeBaseActivity {
                 mYouTubePlayerView.initialize(VideoConfig.getApiKey(), mOnInitializedListener);
             }
         });
-        
     }
 }
