@@ -1,3 +1,4 @@
+
 package com.example.android.sqliteweather;
 
 import androidx.annotation.NonNull;
@@ -220,4 +221,5 @@ public class ForecastDetailActivity extends AppCompatActivity {
 //            startActivity(chooserIntent);
 //        }
 //    }
+
 }
