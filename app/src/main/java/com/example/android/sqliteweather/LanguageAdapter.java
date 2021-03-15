@@ -71,10 +71,8 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
 
         public void bind(LanguageData languageData) {
             Context ctx = this.itemView.getContext();
-
             langTV.setText(languageData.getEnglish_name());
 
         }
-
     }
 }

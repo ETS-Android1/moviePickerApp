@@ -24,96 +24,19 @@ import com.example.android.sqliteweather.utils.OpenWeatherUtils;
 import java.util.Calendar;
 
 public class ForecastDetailActivity extends AppCompatActivity {
-    public static final String EXTRA_FORECAST_DATA = "ForecastDetailActivity.ForecastData";
-    public static final String EXTRA_FORECAST_CITY = "ForecastDetailActivity.ForecastCity";
-
-    private ForecastData forecastData = null;
-    private ForecastCity forecastCity = null;
-
     private Toast errorToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_forecast_detail);
-        setContentView(R.layout.activity_view_movie);
+        setContentView(R.layout.activity_movie_detail);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Intent intent = getIntent();
-
-//        if (intent != null && intent.hasExtra(EXTRA_FORECAST_CITY)) {
-//            this.forecastCity = (ForecastCity)intent.getSerializableExtra(EXTRA_FORECAST_CITY);
-//            TextView forecastCityTV = findViewById(R.id.tv_forecast_city);
-//            forecastCityTV.setText(this.forecastCity.getName());
-//        }
-//
-//        if (intent != null && intent.hasExtra(EXTRA_FORECAST_DATA)) {
-//            this.forecastData = (ForecastData)intent.getSerializableExtra(EXTRA_FORECAST_DATA);
-//
-//            /*
-//             * Load forecast icon into ImageView using Glide: https://bumptech.github.io/glide/
-//             */
-//            ImageView forecastIconIV = findViewById(R.id.iv_forecast_icon);
-//            Glide.with(this)
-//                    .load(this.forecastData.getIconUrl())
-//                    .into(forecastIconIV);
-//
-//            TextView forecastDateTV = findViewById(R.id.tv_forecast_date);
-//            Calendar date = OpenWeatherUtils.dateFromEpochAndTZOffset(
-//                    forecastData.getEpoch(),
-//                    forecastCity.getTimezoneOffsetSeconds()
-//            );
-//            forecastDateTV.setText(getString(
-//                    R.string.forecast_date_time,
-//                    getString(R.string.forecast_date, date),
-//                    getString(R.string.forecast_time, date)
-//            ));
-//
-//            String unitsPref = sharedPreferences.getString(
-//                    getString(R.string.pref_units_key),
-//                    getString(R.string.pref_units_default_value)
-//            );
-//            TextView lowTempTV = findViewById(R.id.tv_unfavorite_pass);
-//            lowTempTV.setText(getString(
-//                    R.string.forecast_temp,
-//                    forecastData.getLowTemp(),
-//                    /* get correct temperature unit for unit preference setting */
-//                    OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            TextView highTempTV = findViewById(R.id.tv_favorite);
-//            highTempTV.setText(getString(
-//                    R.string.forecast_temp,
-//                    forecastData.getHighTemp(),
-//                    /* get correct temperature unit for unit preference setting */
-//                    OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            TextView popTV = findViewById(R.id.tv_pop);
-//            popTV.setText(getString(R.string.forecast_pop, forecastData.getPop()));
-//
-//            TextView cloudsTV = findViewById(R.id.tv_clouds);
-//            cloudsTV.setText(getString(R.string.forecast_clouds, forecastData.getCloudCoverage()));
-//
-//            TextView windTV = findViewById(R.id.tv_wind);
-//            windTV.setText(getString(
-//                    R.string.forecast_wind,
-//                    forecastData.getWindSpeed(),
-//                    /* get correct wind speed unit for unit preference setting */
-//                    OpenWeatherUtils.getWindSpeedDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            ImageView windDirIV = findViewById(R.id.iv_wind_dir);
-//            windDirIV.setRotation(forecastData.getWindDirDeg());
-//
-//            TextView forecastDescriptionTV = findViewById(R.id.tv_forecast_description);
-//            forecastDescriptionTV.setText(forecastData.getShortDescription());
-//        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.activity_forecast_detail, menu);
         getMenuInflater().inflate(R.menu.activity_movie_detail, menu);
         return true;
     }
@@ -121,9 +44,7 @@ public class ForecastDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            //case R.id.action_share:
             case R.id.action_view_movie_web:
-                //shareForecastText();
                 viewMovieWebsite();
                 return true;
             default:
