@@ -17,6 +17,15 @@ public interface OpenMovieService {
             @Query("api_key") String apikey
     );
 
+    @GET("discover/movie")
+    Call<MovieList> fetchMovies(
+            @Query("api_key") String apikey,
+            @Query("language") String language,
+            @Query("sort_by") String sortBy,
+            @Query("with_genres") String withGenres,
+            @Query("page") String page
+    );
+
 
 
 }
