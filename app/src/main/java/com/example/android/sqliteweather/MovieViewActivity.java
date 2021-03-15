@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,101 +50,60 @@ public class MovieViewActivity extends AppCompatActivity {
 
         if (intent != null && intent.hasExtra(EXTRA_MOVIE_DATA)) {
             this.movieData = (MovieData) intent.getSerializableExtra(EXTRA_MOVIE_DATA);
-
             Log.d(TAG, "this poster address going in: " + movieData.getPoster_path());
-            ImageView posterIV = findViewById(R.id.iv_movie_icon);
-            Glide.with(this)
-                    .load(this.movieData.getPoster_path())
-                    .into(posterIV);
-            TextView movieName = findViewById(R.id.tv_movie_name);
-            movieName.setText(movieData.getTitle());
+            buildView();
+
         }
+    }
+    public void buildDetail(){
+        setContentView(R.layout.activity_movie_detail);
+        TextView movieTitleTV = findViewById(R.id.tv_movie_title);
+        movieTitleTV.setText(movieData.getTitle());
 
-        if (intent != null && intent.hasExtra(EXTRA_RV_DATA)){
-            this.mainRV = (RecyclerView) intent.getSerializableExtra(EXTRA_RV_DATA);
-        }
+        TextView infoBox = findViewById(R.id.info_text);
+        infoBox.setText(movieData.getOverview());
 
-        if (intent != null && intent.hasExtra(EXTRA_GENRE_ADAPTER)){
-            this.genreAdapter = (GenreAdapter) intent.getSerializableExtra(EXTRA_GENRE_ADAPTER);
-        }
+        TextView releaseDate = findViewById(R.id.info_text2);
+        releaseDate.setText(movieData.getRelease());
 
+        TextView rating = findViewById(R.id.info_text3);
+        rating.setText(movieData.getRating());
 
-//        if (intent != null && intent.hasExtra(EXTRA_FORECAST_CITY)) {
-//            this.forecastCity = (ForecastCity)intent.getSerializableExtra(EXTRA_FORECAST_CITY);
-//            TextView forecastCityTV = findViewById(R.id.tv_forecast_city);
-//            forecastCityTV.setText(this.forecastCity.getName());
-//        }
-//
-//        if (intent != null && intent.hasExtra(EXTRA_FORECAST_DATA)) {
-//            this.forecastData = (ForecastData)intent.getSerializableExtra(EXTRA_FORECAST_DATA);
-//
-//            /*
-//             * Load forecast icon into ImageView using Glide: https://bumptech.github.io/glide/
-//             */
-//            ImageView forecastIconIV = findViewById(R.id.iv_forecast_icon);
-//            Glide.with(this)
-//                    .load(this.forecastData.getIconUrl())
-//                    .into(forecastIconIV);
-//
-//            TextView forecastDateTV = findViewById(R.id.tv_forecast_date);
-//            Calendar date = OpenWeatherUtils.dateFromEpochAndTZOffset(
-//                    forecastData.getEpoch(),
-//                    forecastCity.getTimezoneOffsetSeconds()
-//            );
-//            forecastDateTV.setText(getString(
-//                    R.string.forecast_date_time,
-//                    getString(R.string.forecast_date, date),
-//                    getString(R.string.forecast_time, date)
-//            ));
-//
-//            String unitsPref = sharedPreferences.getString(
-//                    getString(R.string.pref_units_key),
-//                    getString(R.string.pref_units_default_value)
-//            );
-//            TextView lowTempTV = findViewById(R.id.tv_unfavorite_pass);
-//            lowTempTV.setText(getString(
-//                    R.string.forecast_temp,
-//                    forecastData.getLowTemp(),
-//                    /* get correct temperature unit for unit preference setting */
-//                    OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            TextView highTempTV = findViewById(R.id.tv_favorite);
-//            highTempTV.setText(getString(
-//                    R.string.forecast_temp,
-//                    forecastData.getHighTemp(),
-//                    /* get correct temperature unit for unit preference setting */
-//                    OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            TextView popTV = findViewById(R.id.tv_pop);
-//            popTV.setText(getString(R.string.forecast_pop, forecastData.getPop()));
-//
-//            TextView cloudsTV = findViewById(R.id.tv_clouds);
-//            cloudsTV.setText(getString(R.string.forecast_clouds, forecastData.getCloudCoverage()));
-//
-//            TextView windTV = findViewById(R.id.tv_wind);
-//            windTV.setText(getString(
-//                    R.string.forecast_wind,
-//                    forecastData.getWindSpeed(),
-//                    /* get correct wind speed unit for unit preference setting */
-//                    OpenWeatherUtils.getWindSpeedDisplayForUnitsPref(unitsPref, this)
-//            ));
-//
-//            ImageView windDirIV = findViewById(R.id.iv_wind_dir);
-//            windDirIV.setRotation(forecastData.getWindDirDeg());
-//
-//            TextView forecastDescriptionTV = findViewById(R.id.tv_forecast_description);
-//            forecastDescriptionTV.setText(forecastData.getShortDescription());
-//        }
+        TextView genres = findViewById(R.id.info_text4);
+        genres.setText(movieData.getGenre_ids().get(0).toString());
+
+        LinearLayout linearHolder = findViewById(R.id.ll_movie_detail);
+        linearHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buildView();
+            }
+        });
+
+    }
+
+    public void buildView(){
+        setContentView(R.layout.activity_view_movie);
+        TextView movieName = findViewById(R.id.tv_movie_name);
+        movieName.setText(movieData.getTitle());
+        ImageView posterIV = findViewById(R.id.iv_movie_icon);
+        Glide.with(this)
+                .load(this.movieData.getPoster_path())
+                .into(posterIV);
+
+        posterIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buildDetail();
+
+            }
+
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (genreAdapter != null && mainRV != null){
-            mainRV.setAdapter(genreAdapter);
-        }
     }
 
     @Override

@@ -21,15 +21,18 @@ public class MovieData implements Serializable {
     private String title;
     private String poster_path;
     private String overview;
+    private String release;
+    private String rating;
 
-    public MovieData(ArrayList<Integer> gi, int i, String ol, String t, String pp, String o){
+    public MovieData(ArrayList<Integer> gi, int i, String ol, String t, String pp, String o, String r, String ra){
         genre_ids = gi;
         id = i;
         original_Language = ol;
         title = t;
         poster_path = POSTER_URL_FORMAT_STR + pp;
         overview = o;
-
+        release = r;
+        rating = ra;
     }
 
     public ArrayList<Integer> getGenre_ids() { return genre_ids; }
@@ -39,6 +42,10 @@ public class MovieData implements Serializable {
     public String getPoster_path(){return this.poster_path;}
 
     public String getOverview() { return overview; }
+
+    public String getRelease() { return release; }
+
+    public String getRating() { return rating; }
 
     public static String getPosterUrlFormatStr() {
         return POSTER_URL_FORMAT_STR;
