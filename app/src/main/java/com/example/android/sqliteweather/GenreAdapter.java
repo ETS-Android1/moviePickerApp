@@ -13,7 +13,7 @@ import com.example.android.sqliteweather.data.GenreData;
 
 import java.util.ArrayList;
 
-public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreItemViewHolder> {
+public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MovieItemViewHolder> {
     private ArrayList<GenreData> genreList;
     private OnGenreItemClickListener onGenreItemClickListener;
 
@@ -27,14 +27,14 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreItemVie
 
     @NonNull
     @Override
-    public GenreItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.genre_list_item, parent, false);
-        return new GenreItemViewHolder(itemView);
+        return new MovieItemViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GenreItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieItemViewHolder holder, int position) {
         holder.bind(this.genreList.get(position));
     }
 
@@ -52,10 +52,10 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreItemVie
         }
     }
 
-    class GenreItemViewHolder extends RecyclerView.ViewHolder {
+    class MovieItemViewHolder extends RecyclerView.ViewHolder {
         final private TextView genreTV;
 
-        public GenreItemViewHolder(@NonNull View itemView) {
+        public MovieItemViewHolder(@NonNull View itemView) {
             super(itemView);
             genreTV = itemView.findViewById(R.id.tv_genre);
 

@@ -190,6 +190,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMovieItemClick(GenreData genreData) {
         Log.d(TAG, "The genre clicked was: " + genreData.getName());
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Language");
         this.forecastListRV.setAdapter(this.languageAdapter);
         //Intent intent = new Intent(this, ForecastDetailActivity.class);
         //startActivity(intent);
