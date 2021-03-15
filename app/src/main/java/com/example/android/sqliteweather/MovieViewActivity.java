@@ -24,18 +24,17 @@ import com.bumptech.glide.Glide;
 import com.example.android.sqliteweather.data.ForecastCity;
 import com.example.android.sqliteweather.data.ForecastData;
 import com.example.android.sqliteweather.data.GenreData;
+import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.MovieData;
 
 public class MovieViewActivity extends AppCompatActivity {
     private static final String TAG = MovieViewActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_DATA = "MovieViewActivity.MovieData";
-    public static final String EXTRA_RV_DATA = "MovieViewActivity.RecyclerView";
-    public static final String EXTRA_GENRE_ADAPTER = "MovieViewActivity.GenreAdapter";
+    public static final String EXTRA_GENRE_DATA = "MovieViewActivity.GenreList";
 
 
     private MovieData movieData = null;
-    private RecyclerView mainRV = null;
-    private GenreAdapter genreAdapter = null;
+    private GenreList genreList = null;
 
     private Toast errorToast;
 
@@ -54,6 +53,10 @@ public class MovieViewActivity extends AppCompatActivity {
             buildView();
 
         }
+
+        if(intent != null && intent.hasExtra(EXTRA_GENRE_DATA)){
+            this.genreList = (GenreList) intent.getSerializableExtra(EXTRA_GENRE_DATA);
+        }
     }
     public void buildDetail(){
         setContentView(R.layout.activity_movie_detail);
@@ -70,7 +73,20 @@ public class MovieViewActivity extends AppCompatActivity {
         rating.setText(movieData.getRating());
 
         TextView genres = findViewById(R.id.info_text4);
-        genres.setText(movieData.getGenre_ids().get(0).toString());
+        String sto = "";
+        for (int i = 0; i < movieData.getGenre_ids().size(); i++) {
+            if(i != 0){
+                sto += ", ";
+            }
+            for (int j = 0; j < genreList.getGenresList().size(); j++) {
+                if(movieData.getGenre_ids().get(i) == genreList.getGenresList().get(j).getId()){
+                    sto += genreList.getGenresList().get(j).getName();
+                }
+            }
+
+        }
+
+        genres.setText(sto);
 
         LinearLayout linearHolder = findViewById(R.id.ll_movie_detail);
         linearHolder.setOnClickListener(new View.OnClickListener() {

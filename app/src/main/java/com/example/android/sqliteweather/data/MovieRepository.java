@@ -47,7 +47,7 @@ public class MovieRepository {
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LanguageData.class, new LanguageData.JsonDeserializer())
-                .registerTypeAdapter(GenreData.class, new GenreData.JsonDeserializer())
+                .registerTypeAdapter(GenreList.class, new GenreList.JsonDeserializer())
                 .registerTypeAdapter(MovieList.class, new MovieList.JsonDeserializer())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -86,6 +86,7 @@ public class MovieRepository {
                     @Override
                     public void onResponse(Call<GenreList> call, Response<GenreList> response) {
                         if (response.code() == 200) {
+                            Log.d(TAG, "Valid query: " + call.request().url());
                             genreList.setValue(response.body());
                             loadingStatus.setValue(LoadingStatus.SUCCESS);
                             Log.d(TAG, "Loading genres successful");
