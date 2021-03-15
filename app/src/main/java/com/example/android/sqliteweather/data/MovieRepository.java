@@ -138,7 +138,9 @@ public class MovieRepository {
                     @Override
                     public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                         if (response.code() == 200) {
+                            Log.d(TAG, "Valid query: " + call.request().url());
                             movieList.setValue(response.body());
+                            Log.d(TAG, "Valid movie: " + movieList.getValue().getMovieList().size());
                             loadingStatus.setValue(LoadingStatus.SUCCESS);
                         } else {
                             loadingStatus.setValue(LoadingStatus.ERROR);

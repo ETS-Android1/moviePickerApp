@@ -1,5 +1,7 @@
 package com.example.android.sqliteweather.data;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -11,19 +13,24 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MovieList implements Serializable{
-    private ArrayList<MovieData> movieList;
+    private static final String TAG = MovieList.class.getSimpleName();
+    private ArrayList<MovieData> results;
 
     public MovieList(ArrayList<MovieData> movLis){
-        this.movieList = movLis;
+        this.results = movLis;
     }
 
     public ArrayList<MovieData> getMovieList() {
-        return movieList;
+        return results;
     }
 
-    public static class JsonDeserializer implements com.google.gson.JsonDeserializer<ArrayList<MovieData>> {
+    public void setResults(ArrayList<MovieData> results) {
+        this.results = results;
+    }
+
+    public static class JsonDeserializer implements com.google.gson.JsonDeserializer<MovieList> {
         @Override
-        public ArrayList<MovieData> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public MovieList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             ArrayList<MovieData> movieList = new ArrayList<>();
 
             JsonObject listObj = json.getAsJsonObject();
@@ -36,17 +43,17 @@ public class MovieList implements Serializable{
                     idsSto.add(genre_ids.get(j).getAsInt());
                 }
 
-
+                Log.d(TAG, "Building movie: " + movieObj.getAsJsonPrimitive("original_title").getAsString());
                 movieList.add(new MovieData(idsSto,
                         movieObj.getAsJsonPrimitive("id").getAsInt(),
                         movieObj.getAsJsonPrimitive("original_language").getAsString(),
                         movieObj.getAsJsonPrimitive("original_title").getAsString(),
-                        movieObj.getAsJsonPrimitive("poster_path").getAsString()
+                        movieObj.getAsJsonPrimitive("poster_path").getAsString(),
+                        movieObj.getAsJsonPrimitive("overview").getAsString()
                 ));
             }
-
-
-            return movieList;
+            Log.d(TAG, "DABS: " + movieList.get(0).getGenre_ids().get(3));
+            return new MovieList(movieList);
         }
     }
 

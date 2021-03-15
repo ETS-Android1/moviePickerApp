@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
-
+        /*
         this.movieViewModel.getMovieList().observe(
                 this,
                 new Observer<MovieList>() {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 }
-        );
+        );*/
 
 
 

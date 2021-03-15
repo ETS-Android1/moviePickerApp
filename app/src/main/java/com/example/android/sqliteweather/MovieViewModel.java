@@ -25,6 +25,7 @@ public class MovieViewModel extends ViewModel {
         this.repository = new MovieRepository();
         genreList = repository.getGenres();
         languageList = repository.getLanguage();
+        movieList = repository.getMovieList();
         loadingStatus = repository.getLoadingStatus();
     }
 
