@@ -18,12 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BasicWeather">
         <activity
-            android:name="com.example.android.sqliteweather.SettingsActivity"
-            android:parentActivityName="com.example.android.sqliteweather.MainActivity" />
-        <activity
-            android:name="com.example.android.sqliteweather.ForecastDetailActivity"
-            android:parentActivityName="com.example.android.sqliteweather.MainActivity" />
-        <activity
             android:name="com.example.android.sqliteweather.MovieViewActivity"
             android:parentActivityName="com.example.android.sqliteweather.MainActivity" />
         <activity
