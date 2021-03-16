@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity
     private static final String OPENWEATHER_APPID = "37018d7ab26ab6677bb68c9d40c5942f";
     private static final String OPENMOVIE_APPID = "ed9eb9ebc0c0079eb7aae2b6a62fb801";
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String GENRE = "genre";
+    public static final String LANGUAGE = "language";
+
+
     private ForecastAdapter forecastAdapter;
     private FiveDayForecastViewModel fiveDayForecastViewModel;
     private MovieViewModel movieViewModel;
@@ -70,6 +75,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<LanguageData> langList;
 
     private SharedPreferences sharedPreferences;
+
+    private SharedPreferences moviePreferences;
     private SharedPreferences.Editor editor;
 
     private ForecastCity forecastCity;
@@ -97,7 +104,9 @@ public class MainActivity extends AppCompatActivity
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-        this.editor = sharedPreferences.edit();
+
+        this.moviePreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        this.editor = moviePreferences.edit();
 
         this.fiveDayForecastViewModel = new ViewModelProvider(this)
                 .get(FiveDayForecastViewModel.class);
@@ -105,6 +114,14 @@ public class MainActivity extends AppCompatActivity
 
         this.movieViewModel = new ViewModelProvider(this)
                 .get(MovieViewModel.class);
+
+        if(this.moviePreferences.getString(GENRE, "xx") != "xx"
+                && this.moviePreferences.getString(LANGUAGE, "xx") != "xx"){
+            Log.d(TAG, "BUILDING MOVIE LIST FROM PREVIOUS PREFERENCES!");
+            this.loadMovie();
+        }
+
+
         this.movieViewModel.loadMovies(1, OPENMOVIE_APPID, "", "", "", "");
         //this.movieViewModel.loadMovies(2, OPENMOVIE_APPID);
 
@@ -114,7 +131,7 @@ public class MainActivity extends AppCompatActivity
         this.forecastListRV.setAdapter(this.genreAdapter);
 
         langList = new ArrayList<>();
-        langList.add(new LanguageData("en", "English", "English"));
+        langList.add(new LanguageData("en-US", "English", "English"));
         langList.add(new LanguageData("es", "Spanish", "Español"));
         langList.add(new LanguageData("fr", "French", "Français"));
         langList.add(new LanguageData("ja", "Japanese", "日本語"));
@@ -173,19 +190,27 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
+
+
     }
 
     public void buildIntent(){
+        int q = rand.nextInt(20);
         Intent intent = new Intent(this, MovieViewActivity.class);
-        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, movieViewModel.getMovie(0));
+        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, movieViewModel.getMovie(q));
         intent.putExtra(MovieViewActivity.EXTRA_GENRE_DATA, movieViewModel.getGenres().getValue());
+        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_LIST, movieViewModel.getMovieList().getValue());
         startActivity(intent);
     }
 
     @Override
     public void onGenreItemClick(GenreData genreData) {
-        Log.d(TAG, "The genre clicked was: " + genreData.getName());
-        //this.editor.putString(getString(R.string.pref_genre_key), getString(genreData.getId()));
+        Log.d(TAG, "The saved genre before: " + this.moviePreferences.getString(GENRE, "100"));
+
+        this.editor.putString(GENRE, String.valueOf(genreData.getId()));
+        this.editor.apply();
+
+        Log.d(TAG, "The saved genre: " + this.moviePreferences.getString(GENRE, "100"));
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Language");
         this.forecastListRV.setAdapter(this.languageAdapter);
@@ -193,17 +218,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLanguageItemClick(LanguageData languageData) {
-        Log.d(TAG, "The language clicked was: " + languageData.getEnglish_name());
-        //this.forecastListRV.setAdapter(this.genreAdapter);
-        Log.d(TAG, "The editing iso: " + languageData.getIso());
 
-        this.editor.putString(getString(R.string.pref_language_key), "test");
+        Log.d(TAG, "The saved language before: " + this.moviePreferences.getString(LANGUAGE, "xx"));
 
-        Log.d(TAG, "The saved iso: " + this.sharedPreferences.getString(
-                getString(R.string.pref_language_key), "en"));
+        this.editor.putString(LANGUAGE, languageData.getIso());
+        this.editor.apply();
+
+        Log.d(TAG, "The saved language: " + this.moviePreferences.getString(LANGUAGE, "xx"));
         this.loadMovie();
-
-
     }
 
     @Override
@@ -274,15 +296,10 @@ public class MainActivity extends AppCompatActivity
         this.movieViewModel.loadMovies(
                 0,
                 OPENMOVIE_APPID,
-                this.sharedPreferences.getString(
-                        getString(R.string.pref_language_key), "en"),
+                this.moviePreferences.getString(LANGUAGE, "en"),
                 "popularity.desc",
-                this.sharedPreferences.getString(
-                        getString(R.string.pref_genre_key), "28"),
+                this.moviePreferences.getString(GENRE, "100"),
                 q
-
-
-
         );
     }
 

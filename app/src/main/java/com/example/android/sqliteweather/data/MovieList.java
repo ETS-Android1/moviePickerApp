@@ -50,8 +50,8 @@ public class MovieList implements Serializable{
                         movieObj.getAsJsonPrimitive("title").getAsString(),
                         movieObj.getAsJsonPrimitive("poster_path").getAsString(),
                         movieObj.getAsJsonPrimitive("overview").getAsString(),
-                        "2002",
-                        "8.3"
+                        movieObj.getAsJsonPrimitive("release_date").getAsString(),
+                        movieObj.getAsJsonPrimitive("vote_average").getAsString()
                 ));
             }
             //Log.d(TAG, "DABS: " + movieList.get(0).getGenre_ids().get(3));

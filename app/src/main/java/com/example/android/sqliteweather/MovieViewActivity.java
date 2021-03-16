@@ -26,16 +26,20 @@ import com.example.android.sqliteweather.data.ForecastData;
 import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.MovieData;
+import com.example.android.sqliteweather.data.MovieList;
+
+import java.util.Random;
 
 public class MovieViewActivity extends AppCompatActivity {
     private static final String TAG = MovieViewActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_DATA = "MovieViewActivity.MovieData";
     public static final String EXTRA_GENRE_DATA = "MovieViewActivity.GenreList";
+    public static final String EXTRA_MOVIE_LIST = "MovieViewActivity.MovieList";
 
-
+    private MovieList movieList = null;
     private MovieData movieData = null;
     private GenreList genreList = null;
-
+    private Random rand;
     private Toast errorToast;
 
     @Override
@@ -43,7 +47,8 @@ public class MovieViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_movie);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        rand = new Random();
+
         Intent intent = getIntent();
 
         if (intent != null && intent.hasExtra(EXTRA_MOVIE_DATA)) {
@@ -55,7 +60,13 @@ public class MovieViewActivity extends AppCompatActivity {
         if(intent != null && intent.hasExtra(EXTRA_GENRE_DATA)){
             this.genreList = (GenreList) intent.getSerializableExtra(EXTRA_GENRE_DATA);
         }
+
+        if(intent != null && intent.hasExtra(EXTRA_MOVIE_LIST)){
+            this.movieList = (MovieList) intent.getSerializableExtra(EXTRA_MOVIE_LIST);
+        }
     }
+
+    //This stuff holds the different genres, description, rating and so on
     public void buildDetail(){
         setContentView(R.layout.activity_movie_detail);
         TextView movieTitleTV = findViewById(R.id.tv_movie_title);
@@ -94,6 +105,7 @@ public class MovieViewActivity extends AppCompatActivity {
         });
     }
 
+    //Displays the poster for the movie
     public void buildView(){
         setContentView(R.layout.activity_view_movie);
         TextView movieName = findViewById(R.id.tv_movie_name);
@@ -109,6 +121,16 @@ public class MovieViewActivity extends AppCompatActivity {
                 buildDetail();
             }
         });
+
+        ImageView xMark = findViewById(R.id.iv_unfavorite_icon);
+        xMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                movieData = movieList.getMovieList().get(rand.nextInt(20));
+                buildView();
+            }
+        });
+
     }
 
     @Override
