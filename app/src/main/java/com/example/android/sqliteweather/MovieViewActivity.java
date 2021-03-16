@@ -22,8 +22,6 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.android.sqliteweather.data.ForecastCity;
-import com.example.android.sqliteweather.data.ForecastData;
 import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LanguageData;

@@ -3,8 +3,7 @@ package com.example.android.sqliteweather;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.android.sqliteweather.data.FiveDayForecast;
-import com.example.android.sqliteweather.data.FiveDayForecastRepository;
+
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LanguageData;
 import com.example.android.sqliteweather.data.LanguageList;

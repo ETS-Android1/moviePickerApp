@@ -22,8 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.sqliteweather.data.ForecastCity;
-import com.example.android.sqliteweather.data.ForecastData;
+
 import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.LanguageData;
@@ -34,8 +33,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
-        implements SharedPreferences.OnSharedPreferenceChangeListener,
-        GenreAdapter.OnGenreItemClickListener,
+        implements GenreAdapter.OnGenreItemClickListener,
         LanguageAdapter.OnLanguageItemClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -59,7 +57,6 @@ public class MainActivity extends AppCompatActivity
      *
      *   buildConfigField("String", "OPENWEATHER_API_KEY", OPENWEATHER_API_KEY)
      */
-    private static final String OPENWEATHER_APPID = "37018d7ab26ab6677bb68c9d40c5942f";
     private static final String OPENMOVIE_APPID = "ed9eb9ebc0c0079eb7aae2b6a62fb801";
 
     public static final String SHARED_PREFS = "sharedPrefs";
@@ -67,19 +64,17 @@ public class MainActivity extends AppCompatActivity
     public static final String LANGUAGE = "language";
 
 
-    private ForecastAdapter forecastAdapter;
-    private FiveDayForecastViewModel fiveDayForecastViewModel;
     private MovieViewModel movieViewModel;
     private GenreAdapter genreAdapter;
     private LanguageAdapter languageAdapter;
     private ArrayList<LanguageData> langList;
 
-    private SharedPreferences sharedPreferences;
+
 
     private SharedPreferences moviePreferences;
     private SharedPreferences.Editor editor;
 
-    private ForecastCity forecastCity;
+
 
     private RecyclerView forecastListRV;
     private ProgressBar loadingIndicatorPB;
@@ -100,17 +95,10 @@ public class MainActivity extends AppCompatActivity
         this.forecastListRV.setLayoutManager(new LinearLayoutManager(this));
         this.forecastListRV.setHasFixedSize(true);
 
-        this.forecastListRV.setAdapter(this.forecastAdapter);
-
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        this.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         this.moviePreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         this.editor = moviePreferences.edit();
 
-        this.fiveDayForecastViewModel = new ViewModelProvider(this)
-                .get(FiveDayForecastViewModel.class);
-        this.loadForecast();
 
         this.movieViewModel = new ViewModelProvider(this)
                 .get(MovieViewModel.class);
@@ -166,32 +154,6 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
-
-        /*
-         * Update UI to reflect changes in loading status.
-         */
-        this.fiveDayForecastViewModel.getLoadingStatus().observe(
-                this,
-                new Observer<LoadingStatus>() {
-                    @Override
-                    public void onChanged(LoadingStatus loadingStatus) {
-                        if (loadingStatus == LoadingStatus.LOADING) {
-                            loadingIndicatorPB.setVisibility(View.VISIBLE);
-                        } else if (loadingStatus == LoadingStatus.SUCCESS) {
-                            loadingIndicatorPB.setVisibility(View.INVISIBLE);
-                            forecastListRV.setVisibility(View.VISIBLE);
-                            errorMessageTV.setVisibility(View.INVISIBLE);
-                        } else {
-                            loadingIndicatorPB.setVisibility(View.INVISIBLE);
-                            forecastListRV.setVisibility(View.INVISIBLE);
-                            errorMessageTV.setVisibility(View.VISIBLE);
-                            errorMessageTV.setText(getString(R.string.loading_error, "ヽ(。_°)ノ"));
-                        }
-                    }
-                }
-        );
-
-
     }
 
     public void buildIntent(){
@@ -237,13 +199,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_map:
-                viewForecastCityInMap();
-                return true;
-            case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
 //            case R.id.action_video:
 //                Intent i = new Intent(this, VideoActivity.class);
 //                startActivity(i);
@@ -264,30 +219,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        this.loadMovie();
-    }
 
-    /**
-     * Triggers a new forecast to be fetched based on current preference values.
-     */
-    private void loadForecast() {
-        this.fiveDayForecastViewModel.loadForecast(
-                this.sharedPreferences.getString(
-                        getString(R.string.pref_location_key),
-                        "Corvallis,OR,US"
-                ),
-                this.sharedPreferences.getString(
-                        getString(R.string.pref_units_key),
-                        getString(R.string.pref_units_default_value)
-                ),
-                OPENWEATHER_APPID
-        );
-    }
 
     //this.movieViewModel.loadMovies(0, OPENMOVIE_APPID, "en", "popularity.desc", "28", "1");
     private void loadMovie(){
@@ -301,33 +235,5 @@ public class MainActivity extends AppCompatActivity
                 this.moviePreferences.getString(GENRE, "100"),
                 q
         );
-    }
-
-    /**
-     * This function uses an implicit intent to view the forecast city in a map.
-     */
-    private void viewForecastCityInMap() {
-        if (this.forecastCity != null) {
-            Uri forecastCityGeoUri = Uri.parse(getString(
-                    R.string.geo_uri,
-                    this.forecastCity.getLatitude(),
-                    this.forecastCity.getLongitude(),
-                    12
-            ));
-            Intent intent = new Intent(Intent.ACTION_VIEW, forecastCityGeoUri);
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                if (this.errorToast != null) {
-                    this.errorToast.cancel();
-                }
-                this.errorToast = Toast.makeText(
-                        this,
-                        getString(R.string.action_map_error),
-                        Toast.LENGTH_LONG
-                );
-                this.errorToast.show();
-            }
-        }
     }
 }
