@@ -31,6 +31,7 @@ import com.example.android.sqliteweather.data.LoadingStatus;
 import com.example.android.sqliteweather.data.MovieList;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener,
@@ -69,12 +70,15 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<LanguageData> langList;
 
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     private ForecastCity forecastCity;
 
     private RecyclerView forecastListRV;
     private ProgressBar loadingIndicatorPB;
     private TextView errorMessageTV;
+
+    private Random rand = new Random();
 
     private Toast errorToast;
 
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        this.editor = sharedPreferences.edit();
 
         this.fiveDayForecastViewModel = new ViewModelProvider(this)
                 .get(FiveDayForecastViewModel.class);
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity
         langList.add(new LanguageData("de", "German", "Deutsch"));
         languageAdapter.updateLanguageData(langList);
 
-        this.movieViewModel.loadMovies(0, OPENMOVIE_APPID, "en", "popularity.desc", "28", "1");
+        //this.movieViewModel.loadMovies(0, OPENMOVIE_APPID, "en", "popularity.desc", "28", "1");
 
         this.movieViewModel.getGenres().observe(
                 this,
@@ -139,6 +144,7 @@ public class MainActivity extends AppCompatActivity
                     public void onChanged(MovieList movieList) {
                         if(movieList != null){
                             Log.d(TAG, "This is number of movies stored: " + movieList.getMovieList().size());
+                            buildIntent();
                         }
                     }
                 }
@@ -169,9 +175,17 @@ public class MainActivity extends AppCompatActivity
         );
     }
 
+    public void buildIntent(){
+        Intent intent = new Intent(this, MovieViewActivity.class);
+        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, movieViewModel.getMovie(0));
+        intent.putExtra(MovieViewActivity.EXTRA_GENRE_DATA, movieViewModel.getGenres().getValue());
+        startActivity(intent);
+    }
+
     @Override
     public void onGenreItemClick(GenreData genreData) {
         Log.d(TAG, "The genre clicked was: " + genreData.getName());
+        //this.editor.putString(getString(R.string.pref_genre_key), getString(genreData.getId()));
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Language");
         this.forecastListRV.setAdapter(this.languageAdapter);
@@ -181,10 +195,15 @@ public class MainActivity extends AppCompatActivity
     public void onLanguageItemClick(LanguageData languageData) {
         Log.d(TAG, "The language clicked was: " + languageData.getEnglish_name());
         //this.forecastListRV.setAdapter(this.genreAdapter);
-        Intent intent = new Intent(this, MovieViewActivity.class);
-        intent.putExtra(MovieViewActivity.EXTRA_MOVIE_DATA, this.movieViewModel.getMovie(0));
-        intent.putExtra(MovieViewActivity.EXTRA_GENRE_DATA, this.movieViewModel.getGenres().getValue());
-        startActivity(intent);
+        Log.d(TAG, "The editing iso: " + languageData.getIso());
+
+        this.editor.putString(getString(R.string.pref_language_key), "test");
+
+        Log.d(TAG, "The saved iso: " + this.sharedPreferences.getString(
+                getString(R.string.pref_language_key), "en"));
+        this.loadMovie();
+
+
     }
 
     @Override
@@ -224,7 +243,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        this.loadForecast();
+        this.loadMovie();
     }
 
     /**
@@ -241,6 +260,25 @@ public class MainActivity extends AppCompatActivity
                         getString(R.string.pref_units_default_value)
                 ),
                 OPENWEATHER_APPID
+        );
+    }
+
+    //this.movieViewModel.loadMovies(0, OPENMOVIE_APPID, "en", "popularity.desc", "28", "1");
+    private void loadMovie(){
+        int sto = rand.nextInt(10)+1;
+        String q = "" + sto;
+        this.movieViewModel.loadMovies(
+                0,
+                OPENMOVIE_APPID,
+                this.sharedPreferences.getString(
+                        getString(R.string.pref_language_key), "en"),
+                "popularity.desc",
+                this.sharedPreferences.getString(
+                        getString(R.string.pref_genre_key), "28"),
+                q
+
+
+
         );
     }
 

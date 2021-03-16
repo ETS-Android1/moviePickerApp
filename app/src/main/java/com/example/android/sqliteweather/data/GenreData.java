@@ -17,7 +17,7 @@ public class GenreData implements Serializable {
     private String name;
 
     public GenreData(int i, String n){
-        Log.d(TAG, "Building genre: "+ i + n);
+        //Log.d(TAG, "Building genre: "+ i + n);
         this.id = i;
         this.name = n;
     }

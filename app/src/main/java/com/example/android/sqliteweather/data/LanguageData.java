@@ -25,6 +25,10 @@ public class LanguageData implements Serializable {
         Log.d(TAG, "Building language: " + i + en + n);
     }
 
+    public String getIso() {
+        return iso;
+    }
+
     public String getEnglish_name() {
         return english_name;
     }
