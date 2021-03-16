@@ -22,29 +22,26 @@ public class VideoActivity extends YouTubeBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        Log.d(TAG, "onCreate: Starting...");
+        Log.d(TAG, "onCreate: Starting");
         play_button = (Button) findViewById(R.id.play_button);
         mYouTubePlayerView = (YouTubePlayerView) findViewById(R.id.video_player);
 
         mOnInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                Log.d(TAG, "onClick: Done initializing");
-                //youTubePlayer.loadVideo("9BPMTr-NS9s");
-                youTubePlayer.loadPlaylist("PLgCYzKIBE8TUoCyjomGFqzTFcJ05OaC");
+                Log.d(TAG, "onClick: Done Intializing Video Player");
+                youTubePlayer.loadVideo("1VIZ89FEjYI");
             }
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Log.d(TAG, "onClick: Failed to initializing");
-
+                Log.d(TAG, "onClick: Failed Intializing Video Player");
             }
         };
-
         play_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: Inializing Video Player");
+                Log.d(TAG, "onClick: Intializing Video Player");
                 mYouTubePlayerView.initialize(VideoConfig.getApiKey(), mOnInitializedListener);
             }
         });

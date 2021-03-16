@@ -7,4 +7,10 @@
         android:title="@string/action_view_movie"
         android:icon="@drawable/ic_link_website"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_video"
+        android:title="@string/action_video_title"
+        android:icon="@drawable/ic_action_video"
+        app:showAsAction="ifRoom" />
 </menu>

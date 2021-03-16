@@ -81,7 +81,6 @@ public class MovieViewActivity extends AppCompatActivity {
                     sto += genreList.getGenresList().get(j).getName();
                 }
             }
-
         }
 
         genres.setText(sto);
@@ -128,6 +127,10 @@ public class MovieViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_view_movie_web:
                 viewMovieWebsite();
+                return true;
+            case R.id.action_video:
+                Intent i = new Intent(this, VideoActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

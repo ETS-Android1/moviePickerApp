@@ -29,7 +29,6 @@ public class MovieRepository {
 
     private MutableLiveData<LoadingStatus> loadingStatus;
 
-
     private OpenMovieService openMovieService;
 
     public MovieRepository() {
@@ -56,7 +55,6 @@ public class MovieRepository {
                 .build();
 
         this.openMovieService = retrofit.create(OpenMovieService.class);
-
     }
 
     public LiveData<GenreList> getGenres() {
