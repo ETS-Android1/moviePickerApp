@@ -27,8 +27,13 @@ import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
 import com.example.android.sqliteweather.data.MovieData;
 import com.example.android.sqliteweather.data.MovieList;
+import com.example.android.sqliteweather.data.OpenMovieService;
+import com.example.android.sqliteweather.data.TrailerLink;
 
+import java.net.HttpCookie;
 import java.util.Random;
+
+import retrofit2.Call;
 
 public class MovieViewActivity extends AppCompatActivity {
     private static final String TAG = MovieViewActivity.class.getSimpleName();
@@ -41,6 +46,8 @@ public class MovieViewActivity extends AppCompatActivity {
     private GenreList genreList = null;
     private Random rand;
     private Toast errorToast;
+    private OpenMovieService openMovieService;
+    private String trailerLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,9 @@ public class MovieViewActivity extends AppCompatActivity {
             Log.d(TAG, "this poster address going in: " + movieData.getPoster_path());
             buildView();
         }
+
+//        Call<TrailerLink> req = this.openMovieService.fetchTrailer("43a7bb8517e901d4b5af02da899af56b");
+
 
         if(intent != null && intent.hasExtra(EXTRA_GENRE_DATA)){
             this.genreList = (GenreList) intent.getSerializableExtra(EXTRA_GENRE_DATA);

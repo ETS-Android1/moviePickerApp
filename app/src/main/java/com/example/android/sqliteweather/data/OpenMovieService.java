@@ -26,8 +26,8 @@ public interface OpenMovieService {
             @Query("page") String page
     );
 
-    //@GET("/videos")
-    //Call<TrailerLink> fetchTrailer(
-    //        @Query("api_key") String apikey
-    //);
+    @GET("/videos")
+    Call<TrailerLink> fetchTrailer(
+            @Query("api_key") String apikey
+    );
 }
