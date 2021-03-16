@@ -1,5 +1,6 @@
 package com.example.android.sqliteweather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +15,13 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 public class VideoActivity extends YouTubeBaseActivity {
     private static final String TAG = "VideoActivity";
+    public static final String EXTRA_TRAILER_KEY = "VideoActivity.TrailerLink";
 
     YouTubePlayerView mYouTubePlayerView;
     Button play_button;
     YouTubePlayer.OnInitializedListener mOnInitializedListener;
-    private String videoKey ="14P_k6iVybA";
+    private String defaultKey ="14P_k6iVybA";
+    private TrailerLink trailerLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,19 @@ public class VideoActivity extends YouTubeBaseActivity {
         play_button = (Button) findViewById(R.id.play_button);
         mYouTubePlayerView = (YouTubePlayerView) findViewById(R.id.video_player);
 
+        Intent intent = getIntent();
+        
+        if (intent != null && intent.hasExtra(EXTRA_TRAILER_KEY)) {
+            trailerLink = (TrailerLink) intent.getSerializableExtra(EXTRA_TRAILER_KEY);
+        }else{
+            trailerLink = new TrailerLink(defaultKey);
+        }
+
         mOnInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d(TAG, "onClick: Done Intializing Video Player");
-                youTubePlayer.loadVideo(videoKey);
+                youTubePlayer.loadVideo(trailerLink.getKey());
             }
 
             @Override

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,36 +26,55 @@ import com.example.android.sqliteweather.data.ForecastCity;
 import com.example.android.sqliteweather.data.ForecastData;
 import com.example.android.sqliteweather.data.GenreData;
 import com.example.android.sqliteweather.data.GenreList;
+import com.example.android.sqliteweather.data.LanguageData;
+import com.example.android.sqliteweather.data.LoadingStatus;
 import com.example.android.sqliteweather.data.MovieData;
 import com.example.android.sqliteweather.data.MovieList;
 import com.example.android.sqliteweather.data.OpenMovieService;
 import com.example.android.sqliteweather.data.TrailerLink;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.net.HttpCookie;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieViewActivity extends AppCompatActivity {
     private static final String TAG = MovieViewActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_DATA = "MovieViewActivity.MovieData";
     public static final String EXTRA_GENRE_DATA = "MovieViewActivity.GenreList";
     public static final String EXTRA_MOVIE_LIST = "MovieViewActivity.MovieList";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+    private static final String OPENMOVIE_APPID = "ed9eb9ebc0c0079eb7aae2b6a62fb801";
 
     private MovieList movieList = null;
     private MovieData movieData = null;
     private GenreList genreList = null;
+    private MutableLiveData<TrailerLink> trailerKey;
+
     private Random rand;
     private Toast errorToast;
     private OpenMovieService openMovieService;
-    private String trailerLink;
+    private Gson gson;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_movie);
 
+        this.trailerKey = new MutableLiveData<>();
         rand = new Random();
+
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(TrailerLink.class, new TrailerLink.JsonDeserializer())
+                .create();
 
         Intent intent = getIntent();
 
@@ -74,6 +94,11 @@ public class MovieViewActivity extends AppCompatActivity {
         if(intent != null && intent.hasExtra(EXTRA_MOVIE_LIST)){
             this.movieList = (MovieList) intent.getSerializableExtra(EXTRA_MOVIE_LIST);
         }
+
+
+
+
+
     }
 
     //This stuff holds the different genres, description, rating and so on
@@ -141,6 +166,36 @@ public class MovieViewActivity extends AppCompatActivity {
             }
         });
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL + movieData.getId() + "/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        this.openMovieService = retrofit.create(OpenMovieService.class);
+
+        this.trailerKey.setValue(null);
+
+        Call<TrailerLink> req = this.openMovieService.fetchTrailer(OPENMOVIE_APPID);
+        req.enqueue(new Callback<TrailerLink>() {
+            @Override
+            public void onResponse(Call<TrailerLink> call, Response<TrailerLink> response) {
+                if(response.code() == 200){
+                    Log.d(TAG, "Valid query: " + call.request().url());
+                    trailerKey.setValue(response.body());
+                    Log.d(TAG, "Valid Key aquired: " + trailerKey.getValue().getKey());
+                }else {
+                    Log.d(TAG, "unsuccessful API request: " + call.request().url());
+                    Log.d(TAG, "  -- response status code: " + response.code());
+                    Log.d(TAG, "  -- response: " + response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrailerLink> call, Throwable t) {
+                Log.d(TAG, "unsuccessful API request: " + call.request().url());
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -162,6 +217,7 @@ public class MovieViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_video:
                 Intent i = new Intent(this, VideoActivity.class);
+                i.putExtra(VideoActivity.EXTRA_TRAILER_KEY, trailerKey.getValue());
                 startActivity(i);
                 return true;
             default:
@@ -183,81 +239,4 @@ public class MovieViewActivity extends AppCompatActivity {
             this.errorToast.show();
         }
     }
-
-    /*
-    * private void viewForecastCityInMap() {
-        if (this.forecastCity != null) {
-            Uri forecastCityGeoUri = Uri.parse(getString(
-                    R.string.geo_uri,
-                    this.forecastCity.getLatitude(),
-                    this.forecastCity.getLongitude(),
-                    12
-            ));
-            Intent intent = new Intent(Intent.ACTION_VIEW, forecastCityGeoUri);
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                if (this.errorToast != null) {
-                    this.errorToast.cancel();
-                }
-                this.errorToast = Toast.makeText(
-                        this,
-                        getString(R.string.action_map_error),
-                        Toast.LENGTH_LONG
-                );
-                this.errorToast.show();
-            }
-        }
-    }
-    * */
-
-    /**
-     * This method uses an implicit intent to launch the Android Sharesheet to allow the user to
-     * share the current forecast.
-     */
-//    private void shareForecastText() {
-//        if (this.forecastData != null && this.forecastCity != null) {
-//            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//            Calendar date = OpenWeatherUtils.dateFromEpochAndTZOffset(
-//                    forecastData.getEpoch(),
-//                    forecastCity.getTimezoneOffsetSeconds()
-//            );
-//            String unitsPref = sharedPreferences.getString(
-//                    getString(R.string.pref_units_key),
-//                    getString(R.string.pref_units_default_value)
-//            );
-//            String shareText = getString(
-//                    R.string.share_forecast_text,
-//                    getString(R.string.app_name),
-//                    this.forecastCity.getName(),
-//                    getString(
-//                            R.string.forecast_date_time,
-//                            getString(R.string.forecast_date, date),
-//                            getString(R.string.forecast_time, date)
-//                    ),
-//                    this.forecastData.getShortDescription(),
-//                    getString(
-//                            R.string.forecast_temp,
-//                            forecastData.getHighTemp(),
-//                            /* get correct temperature unit for unit preference setting */
-//                            OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//                    ),
-//                    getString(
-//                            R.string.forecast_temp,
-//                            forecastData.getLowTemp(),
-//                            /* get correct temperature unit for unit preference setting */
-//                            OpenWeatherUtils.getTemperatureDisplayForUnitsPref(unitsPref, this)
-//                    ),
-//                    getString(R.string.forecast_pop, this.forecastData.getPop())
-//            );
-//
-//            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-//            sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-//            sendIntent.setType("text/plain");
-//
-//            Intent chooserIntent = Intent.createChooser(sendIntent, null);
-//            startActivity(chooserIntent);
-//        }
-//    }
-
 }

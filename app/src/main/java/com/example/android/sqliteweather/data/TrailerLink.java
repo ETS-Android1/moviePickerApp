@@ -19,4 +19,19 @@ public class TrailerLink implements Serializable {
         key = ki;
     }
     public String getKey() { return key; }
+
+    public static class JsonDeserializer implements com.google.gson.JsonDeserializer<TrailerLink> {
+        @Override
+        public TrailerLink deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            String sto = "_A-6qcgExA4";
+
+            JsonObject listObj = json.getAsJsonObject();
+            JsonArray resultsArr = listObj.getAsJsonArray("results");
+            if(resultsArr.size() != 0){
+                JsonObject trailer = resultsArr.get(0).getAsJsonObject();
+                sto = trailer.getAsJsonPrimitive("key").getAsString();
+            }
+            return new TrailerLink(sto);
+        }
+    }
 }
