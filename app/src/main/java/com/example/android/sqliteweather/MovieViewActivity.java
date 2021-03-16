@@ -120,6 +120,10 @@ public class MovieViewActivity extends AppCompatActivity {
             if(i != 0){
                 sto += ", ";
             }
+            if(genreList.getGenresList() == null){
+                sto = "failed to aquire genres";
+                break;
+            }
             for (int j = 0; j < genreList.getGenresList().size(); j++) {
                 if(movieData.getGenre_ids().get(i) == genreList.getGenresList().get(j).getId()){
                     sto += genreList.getGenresList().get(j).getName();
