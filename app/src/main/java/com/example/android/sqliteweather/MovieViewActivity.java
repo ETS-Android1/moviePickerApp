@@ -109,7 +109,24 @@ public class MovieViewActivity extends AppCompatActivity {
         infoBox.setText(movieData.getOverview());
 
         TextView releaseDate = findViewById(R.id.info_text2);
-        releaseDate.setText(movieData.getRelease());
+
+        String[] ymd = movieData.getRelease().split("-");
+        if (ymd[1].equals("01")) {ymd[1] = "Jan";}
+        if (ymd[1].equals("02")) {ymd[1] = "Feb";}
+        if (ymd[1].equals("03")) {ymd[1] = "Mar";}
+        if (ymd[1].equals("04")) {ymd[1] = "Apr";}
+        if (ymd[1].equals("05")) {ymd[1] = "May";}
+        if (ymd[1].equals("06")) {ymd[1] = "Jun";}
+        if (ymd[1].equals("07")) {ymd[1] = "Jul";}
+        if (ymd[1].equals("08")) {ymd[1] = "Aug";}
+        if (ymd[1].equals("09")) {ymd[1] = "Sep";}
+        if (ymd[1].equals("10")) {ymd[1] = "Oct";}
+        if (ymd[1].equals("11")) {ymd[1] = "Nov";}
+        if (ymd[1].equals("12")) {ymd[1] = "Dec";}
+
+        String finalRelDate = ymd[1] + " " + ymd[2] + ", " + ymd[0];
+
+        releaseDate.setText(finalRelDate);
 
         TextView rating = findViewById(R.id.info_text3);
         rating.setText(movieData.getRating());
